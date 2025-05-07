@@ -5,15 +5,23 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -27,25 +35,31 @@ import greetingcompose.composeapp.generated.resources.compose_multiplatform
 @Preview
 fun App() {
     MaterialTheme {
-        var showContent by remember { mutableStateOf(false) }
-        Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-            Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
+        RowView()
+    }
+}
+
+/*默认示例*/
+@Composable
+@Preview
+fun DemoView() {
+    var showContent by remember { mutableStateOf(false) }
+    Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+        Button(onClick = { showContent = !showContent }) {
+            Text("Click me!")
+        }
+        Text("hello!", Modifier.padding(horizontal = 10.dp, vertical = 10.dp).background(Color.Red))
+        AnimatedVisibility(showContent) {
+            val greeting = remember { Greeting().greet() }
+            Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                Image(painterResource(Res.drawable.compose_multiplatform), null)
+                Text("Compose: $greeting")
             }
-            Text("hello!", Modifier.padding(horizontal = 10.dp, vertical = 10.dp).background(Color.Red))
-            AnimatedVisibility(showContent) {
-                val greeting = remember { Greeting().greet() }
-                Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                    Image(painterResource(Res.drawable.compose_multiplatform), null)
-                    Text("Compose: $greeting")
-                }
-            }
-            ColumnView()
-            BoxView()
         }
     }
 }
 
+/*垂直排列*/
 @Composable
 @Preview
 fun ColumnView() {
@@ -55,11 +69,26 @@ fun ColumnView() {
     }
 }
 
+/*水平排列*/
 @Composable
 @Preview
-fun BoxView() {
+fun RowView() {
+    Row(modifier = Modifier.height(60.dp).fillMaxWidth().padding(5.dp).background(Color.Yellow)) {
+        Image(painterResource(Res.drawable.compose_multiplatform), null, modifier = Modifier.fillMaxHeight().clip(
+            CircleShape))
+        Spacer(modifier = Modifier.width(10.dp))
+        Column {
+            Text(text = "标题", color = MaterialTheme.colors.secondary, style = MaterialTheme.typography.subtitle1)
+            Text(text = "内容")
+        }
+    }
+}
+
+/*堆叠*/
+@Composable
+@Preview
+fun BoxView(content: String? = null) {
     Box(Modifier.background(Color.Blue)) {
-        Text("text3", Modifier.fillMaxWidth().padding(5.dp).background(Color.LightGray))
-        Text("text4", Modifier.fillMaxWidth().padding(5.dp).background(Color.LightGray))
+        Text(content ?: "空", Modifier.fillMaxWidth().padding(5.dp).background(Color.LightGray))
     }
 }
