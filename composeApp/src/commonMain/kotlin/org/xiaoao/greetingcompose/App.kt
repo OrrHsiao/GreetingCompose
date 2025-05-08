@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -25,6 +26,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -73,13 +75,32 @@ fun ColumnView() {
 @Composable
 @Preview
 fun RowView() {
-    Row(modifier = Modifier.height(60.dp).fillMaxWidth().padding(5.dp).background(Color.Yellow)) {
-        Image(painterResource(Res.drawable.compose_multiplatform), null, modifier = Modifier.fillMaxHeight().clip(
-            CircleShape))
+    Row(modifier = Modifier.height(80.dp).fillMaxWidth().padding(5.dp).background(Color.Yellow)) {
+        Image(
+            painterResource(Res.drawable.compose_multiplatform),
+            null,
+            modifier = Modifier.fillMaxHeight().clip(
+                CircleShape
+            )
+        )
         Spacer(modifier = Modifier.width(10.dp))
-        Column {
-            Text(text = "标题", color = MaterialTheme.colors.secondary, style = MaterialTheme.typography.subtitle1)
-            Text(text = "内容")
+        Column(modifier = Modifier.fillMaxSize()) {
+            Text(
+                text = "标题",
+                color = MaterialTheme.colors.secondary,
+                style = MaterialTheme.typography.subtitle1,
+                modifier = Modifier.height(35.dp).fillMaxWidth().background(Color.Blue),
+            )
+            /*利用Box包裹来实现纵向居中*/
+            Box(
+                contentAlignment = Alignment.CenterStart,
+                modifier = Modifier.height(35.dp).fillMaxWidth().background(Color.Red),
+            ) {
+                Text(
+                    text = "内容",
+                    fontSize = 10.sp,
+                )
+            }
         }
     }
 }
