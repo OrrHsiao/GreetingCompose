@@ -84,20 +84,29 @@ fun RowView() {
             )
         )
         Spacer(modifier = Modifier.width(10.dp))
-        Column(modifier = Modifier.fillMaxSize()) {
-            Text(
-                text = "标题",
-                color = MaterialTheme.colors.secondary,
-                style = MaterialTheme.typography.subtitle1,
-                modifier = Modifier.height(35.dp).fillMaxWidth().background(Color.Blue),
-            )
+        Column(modifier = Modifier.fillMaxSize().background(Color.Cyan)) {
+//            Text(
+//                text = "标题",
+//                color = MaterialTheme.colors.secondary,
+//                style = MaterialTheme.typography.subtitle1,
+//                modifier = Modifier.fillMaxHeight(0.5f).fillMaxWidth().background(Color.Red),
+//            )
             /*利用Box包裹来实现纵向居中*/
             Box(
                 contentAlignment = Alignment.CenterStart,
-                modifier = Modifier.height(35.dp).fillMaxWidth().background(Color.Red),
+                modifier = Modifier.fillMaxHeight(0.5f).fillMaxWidth().background(Color.Magenta),
             ) {
                 Text(
                     text = "内容",
+                    fontSize = 10.sp,
+                )
+            }
+            Box(
+                contentAlignment = Alignment.CenterStart,
+                modifier = Modifier.fillMaxHeight(0.5f).fillMaxWidth().background(Color.Magenta),
+            ) {
+                Text(
+                    text = "内容2",
                     fontSize = 10.sp,
                 )
             }
